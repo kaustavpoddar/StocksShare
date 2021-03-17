@@ -1,8 +1,3 @@
-/**
- * @author Vlad Litvak
- * @since 08.14.2020
- */
-
 // gets symbol url param
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
@@ -30,7 +25,7 @@ var infoLoaded = false;
  */
 function loadInfo(failedAttempts) {
   // update page title with symbol
-  document.title = "MyShare - " + symbol.toUpperCase();
+  document.title = "StocksShare - " + symbol.toUpperCase();
 
   // send api request to get symbol information
   fetch("info?symbol=" + symbol, {
