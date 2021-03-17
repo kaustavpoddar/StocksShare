@@ -66,6 +66,43 @@ EMAIL_ALREADY_TAKEN = 30006
 app = Flask(__name__)
 StocksShare = Api(app)
 
+
+symbolRegex = '^(?=.{1,5}$)[a-zA-Z]+$'
+def checkSymbolFormat(symbol):
+    return re.search(symbolRegex, symbol)
+
+def symbolExists(symbol):
+	if not checkSymbolFormat(symbol):
+		return False
+	try:
+		price = stock_info.get_live_price(symbol)
+		info = yfinance.Ticker(symbol)
+		info.info.update({ "currentPrice" : price })
+	except:
+		return False
+	return True
+
+class Info(Resource):
+
+	# get general information of a symbol including current price, previous close, name, business summary, etc.
+	#
+	# param : "symbol" the symbol whose info will be returned (required)
+	def get(self):
+		parser = reqparse.RequestParser()
+		parser.add_argument("symbol")
+		params = parser.parse_args()
+
+		if params["symbol"] is None:
+			return Response(json.dumps({ "error" : MISSING_SYMBOL_PARAM, "message" : "'symbol' parameter required" }), status=HTTP_BAD_REQUEST, mimetype="application/json")
+
+		try:
+			price = round(stock_info.get_live_price(params["symbol"]), 2)
+			info = yfinance.Ticker(params["symbol"])
+			info.info.update({ "currentPrice" : price })
+			return Response(json.dumps(info.info), status=HTTP_OK, mimetype="application/json")
+		except:
+			return Response(json.dumps({ "error" : INVALID_SYMBOL_PARAM, "message" : "Invalid symbol" }), status=HTTP_BAD_REQUEST, mimetype="application/json")
+
 class SymbolPage(Resource):
 	def get(self):
 		return Response(render_template("symbol.html"), status=HTTP_OK, mimetype="text/html")
@@ -102,6 +139,9 @@ class DeleteAccountPage(Resource):
 	def get(self):
 		return Response(render_template("delete-account.html"), status=HTTP_OK, mimetype="text/html")
 
+
+
+StocksShare.add_resource(Info,"/StocksShare/info")
 StocksShare.add_resource(HomePage, "/StocksShare/home")
 StocksShare.add_resource(SymbolPage, "/StocksShare/symbol")
 StocksShare.add_resource(LoginPage, "/StocksShare/login")
