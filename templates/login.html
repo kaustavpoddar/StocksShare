@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>StocksShare Login</title>
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='images/StocksShareFavicon.ico')}}">
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/universal.css')}}">
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/panel.css')}}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+        <script src="{{ url_for('static',filename='js/login.js') }}"></script>
+    </head>
+    <body>
+        <div class="pagecontainer">
+            <div class="panel unselectable">
+                <h2 style="margin-top:20px;">StocksShare</h2>
+                <h5>Portfolio Manager</h5>
+                
+                <div style="margin-bottom:20px;">
+                    <input style="width:50%;margin-top:8px 0px;" type="text" id="username" placeholder="Username" spellcheck="false" onclick="hideMessage()">
+                </div>
+
+                <div>
+                    <input style="width:50%;margin-top:8px 0px;" type="password" id="password" placeholder="Password" spellcheck="false" onclick="hideMessage()">
+                </div>
+
+                <div class="helplink" style="font-size:11px;margin-bottom:20px;" onclick="window.location.href='recover-password'">
+                    <u>Forgot Password</u>
+                </div>
+
+                <div class="error" style="margin-bottom:10px;" id="error message"></div>
+
+                <div class="buttoncontainer">
+                    <div class="button" style="width:50%" onclick="login()">Log In</div>
+                </div>
+
+                <div class="helplink" style="font-size:11px;margin-bottom:20px;" onclick="window.location.href='register'">
+                    <u>Sign Up</u>
+                </div>
+
+                <div class="helplink" style="font-size:11px;margin-bottom:20px;" onclick="window.location.href='home'">
+                    <u>Back to Home</u>
+                </div>
+
+            </div>
+
+            </div>
+        </div>
+    </body>
+</html>
