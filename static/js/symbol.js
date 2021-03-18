@@ -122,7 +122,7 @@ function loadInfo(failedAttempts) {
           businessSummaryDiv.style.borderRadius = "10px";
           businessSummaryDiv.style.padding = "1px 15px 15px 15px";
           businessSummaryDiv.style.background = "#424242";
-          businessSummaryDiv.innerHTML = "<h4> style=\"color:#BBBBBB\">Business Summary</h4>" + data.longBusinessSummary;
+          businessSummaryDiv.innerHTML = "<h4 style='color:#BBBBBB'>Business Summary</h4>" + data.longBusinessSummary;
         }
 
         // record that info has been loaded
