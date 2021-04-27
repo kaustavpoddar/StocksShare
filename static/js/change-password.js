@@ -42,7 +42,6 @@ function changePassword() {
     changingPassword = false;
   }
 
-  // send api request to update password
   else {
     showMessage("updating...", true);
     fetch("user?id=" + sessionStorage.getItem("id")
